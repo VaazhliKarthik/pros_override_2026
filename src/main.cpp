@@ -31,14 +31,20 @@ void lift_weight() {
 		if (file != nullptr) {
 			std::fprintf(file, "%.3f,%.2f,%.2f,%.3f,%.3f,%.3f,%.2f,%.2f,%.3f,%.3f,%.3f\n",
 			             pros::millis() / 1000.0, robot::arm_left.get_position(), robot::arm_left.get_actual_velocity(),
-			             robot::arm_left.get_torque(), robot::arm_left.get_power(), robot::arm_left.get_current_draw() / 1000.0,
-			             robot::arm_right.get_position(), robot::arm_right.get_actual_velocity(), robot::arm_right.get_torque(),
-			             robot::arm_right.get_power(), robot::arm_right.get_current_draw() / 1000.0);
+			             robot::left_motors.get_torque(), robot::left_motors.get_power(), robot::left_motors.get_current_draw() / 1000.0,
+			             robot::right_motors.get_position(), robot::right_motors.get_actual_velocity(), robot::right_motors.get_torque(),
+			             robot::right_motors.get_power(), robot::right_motors.get_current_draw() / 1000.0);
 			std::fclose(file);
 		}
-		pros::delay(100);
+		pros::delay(100);			std::fclose(file);
+		}
+		}
+		
+
+
+
 	}
-}
+
 
 void calibrate_sensors() {
 	TRACE("Entering calibrate_sensors\n");
@@ -47,7 +53,7 @@ void calibrate_sensors() {
 	while (robot::inertial.is_calibrating()) pros::delay(100);
 }
 
-} // namespace Wall_e
+ // namespace Wall_e
 
 
 namespace Drivetrain {
@@ -141,13 +147,24 @@ namespace Drivetrain {
 
 void opcontrol() {
     // loop forever
+		FILE* file = std::fopen(logger::file_name, "a");
+
     while (true) {
         // get left y and right x positions
 		int leftY = robot::controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
 		int rightX = robot::controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
 
         // move the robot
-        Drivetrain::chassis.curvature(leftY, rightX);
+        Drivetrain::chassis.arcade(leftY, rightX);
+
+		if (file != nullptr) {
+			std::fprintf(file, "%.3f,%.2f,%.2f,%.3f,%.3f,%.3f,%.2f,%.2f,%.3f,%.3f,%.3f\n",
+			             pros::millis() / 1000.0, robot::arm_left.get_position(), robot::arm_left.get_actual_velocity(),
+			             robot::arm_left.get_torque(), robot::arm_left.get_power(), robot::arm_left.get_current_draw() / 1000.0,
+			             robot::arm_right.get_position(), robot::arm_right.get_actual_velocity(), robot::arm_right.get_torque(),
+			             robot::arm_right.get_power(), robot::arm_right.get_current_draw() / 1000.0);
+			//std::fclose(file);
+		}
 
 
 		//move the robot using arcade drive
@@ -156,6 +173,9 @@ void opcontrol() {
         // delay to save resources
         pros::delay(25);
     }
+	if (file != nullptr) {
+		std::fclose(file);
+	}
 }
 
 
@@ -176,7 +196,8 @@ void initialize() {
 	logger::edit_date_screen();
 	if (!logger::log_file_created) logger::save_date_to_sd();
 	TRACE("Start callibration\n");
-	Wall_e::calibrate_sensors();
+	calibrate_sensors();
+
 	pros::lcd::initialize(); // initialize brain screen
     //calibrate(); // calibrate sensors
     // print position to brain screen

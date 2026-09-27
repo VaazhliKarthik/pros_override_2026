@@ -145,7 +145,7 @@ void save_date_to_sd() {
 		std::fclose(recent_file);
 	}
 	log_file_created = true;
-	robot::controller.set_text(2, 0, "I am Thankful for...");
+	robot::controller.set_text(2, 0, "Who are you going to thank?");
 	//after updating the controller 50ms delay is required to ensure the text is displayed correctly
 	pros::delay(50);
 
@@ -209,7 +209,10 @@ void edit_date_screen() {
 			show_date();
 			last_blink = now;
 		}
-		if (button_a && !previous_a) save_date_to_sd();
+		if (button_a && !previous_a) save_date_to_sd();{
+			robot::controller.set_text(0, 0, "Saved date log");
+			save_date_to_sd();
+		}
 
 		previous_up = up;
 		previous_down = down;

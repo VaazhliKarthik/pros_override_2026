@@ -16,8 +16,10 @@ pros::Imu inertial(9);
 //Actuators
 
 //chassis
-pros::MotorGroup left_motors({1, 10}, pros::MotorGearset::green); // left motors use 600 RPM cartridges
-pros::MotorGroup right_motors({-11,-20 }, pros::MotorGearset::green); // right motors use 200 RPM cartridges
+pros::MotorGroup left_motors({-1, -11}, pros::MotorGearset::green); // left motors use 600 RPM cartridges
+pros::MotorGroup right_motors({10,20 }, pros::MotorGearset::green); // right motors use 200 RPM cartridges
+
+
 
 
 // Arm motors
