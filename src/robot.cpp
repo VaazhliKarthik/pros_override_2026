@@ -30,4 +30,7 @@ pros::Motor wrist_left(5, pros::MotorGears::red);
 // Claw motors
 pros::Motor claw(4, pros::MotorGears::red); 
 
+pros::Vision vision_sensor(7); // Vision sensor on port 7
+
+
 } // namespace robot
