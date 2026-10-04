@@ -47,6 +47,8 @@ void lift_weight() {
 			robot::wrist.move_velocity(-100);
 		} else {
 			robot::wrist.move_velocity(0);
+			robot::wrist.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+			robot::wrist.brake();
 		}
 
 		if (robot::controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
@@ -55,6 +57,8 @@ void lift_weight() {
 			robot::claw.move_velocity(-100);
 		} else {
 			robot::claw.move_velocity(0);
+			robot::claw.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+			robot::claw.brake();
 		}
 
 
