@@ -122,7 +122,7 @@ void opcontrol() {
 
 		
 		//move the robot using arcade drive
-		motion::chassis.arcade(throttle, turn);
+		motion::chassis.arcade(turn, throttle);
 
         // delay to save resources
         pros::delay(25);

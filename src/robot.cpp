@@ -32,8 +32,8 @@ double yOffset = 0.0;
 //pros::MotorGroup left_motors({1, 10}, pros::MotorGearset::green); // left motors use 600 RPM cartridges
 //pros::MotorGroup right_motors({-11,-20 }, pros::MotorGearset::green); // right motors use 200 RPM cartridges
 
-pros::MotorGroup left_motors({20, 10}, pros::MotorGearset::green); // left motors use 600 RPM cartridges
-pros::MotorGroup right_motors({-11,-1 }, pros::MotorGearset::green); // right motors use 200 RPM cartridges
+pros::MotorGroup left_motors({11, 1}, pros::MotorGearset::green); // left motors use 600 RPM cartridges
+pros::MotorGroup right_motors({20,10 }, pros::MotorGearset::green); // right motors use 200 RPM cartridges
 
 
 // Arm motors
