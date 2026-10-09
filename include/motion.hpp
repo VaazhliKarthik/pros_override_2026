@@ -13,5 +13,6 @@ namespace motion {
     extern lemlib::ExpoDriveCurve throttle_curve;
     extern lemlib::ExpoDriveCurve steer_curve;  
 
+    void sync_gps_to_lemlib();
 
 } // namespace motion

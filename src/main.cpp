@@ -114,15 +114,15 @@ void opcontrol() {
     // loop forever
     while (true) {
         // get left y and right x positions
-		int throttle = -robot::controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
-		int turn = -robot::controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
+		int throttle = robot::controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
+		int turn = robot::controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
 
         // move the robot
-        //motion::chassis.curvature(leftY, rightX);
+        //motion::chassis.curvature(turn, throttle);
 
 		
 		//move the robot using arcade drive
-		motion::chassis.arcade(turn, throttle);
+		motion::chassis.arcade(throttle, turn);
 
         // delay to save resources
         pros::delay(25);
@@ -225,7 +225,7 @@ void autonomous() {
 	//create and start the log_to_controller task
 	//pros::Task log_to_controller_task_handle(logger::log_to_controller);
 	//log_to_controller_task_handle.resume();
-
+#if 0
 	//create and start the lift_weight task
 	pros::Task lift_weight_task_handle(Wall_e::lift_weight);
 	//lift_weight_task_handle.resume();
@@ -237,6 +237,14 @@ void autonomous() {
 	// motion::chassis.moveToPoint(0, 48, 1000);
 
 	motion::chassis.follow(bottom_txt, 10.0, 1000);
+#endif
+	motion::sync_gps_to_lemlib();
+
+	//    // set position to x:0, y:0, heading:0
+    //motion::chassis.setPose(0, 0, 0);
+    // turn to face heading 90 with a very long timeout
+    motion::chassis.turnToHeading(90, 10000);
+	//motion::chassis.moveToPoint(0, 10, 10000);
 }
 /* autonomous() is implemented above. */
 

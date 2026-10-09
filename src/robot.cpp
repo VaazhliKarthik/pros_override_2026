@@ -12,19 +12,21 @@
 
 namespace robot {
 
+const double inch_to_mm = 25.4;
+
 pros::Controller controller(pros::E_CONTROLLER_MASTER);
 
 //Sensors
 pros::Imu inertial(9);
-pros::Rotation rotation_sensor(2); // example rotation sensor on port 2
+pros::Rotation rotation_sensor(-2); // example rotation sensor on port 2
 pros::GPS gps(3); // example GPS on port 3
 
 //GPS sensor
 double xInitial = 0.0;
 double yInitial = 0.0;
 double headingInitial = 0.0;
-double xOffset = 0.0;
-double yOffset = 0.0;
+double xOffset = (-10.5/2.0)*inch_to_mm;
+double yOffset = (10.5/2.0)*inch_to_mm;
 
 //Actuators
 
@@ -32,7 +34,7 @@ double yOffset = 0.0;
 //pros::MotorGroup left_motors({1, 10}, pros::MotorGearset::green); // left motors use 600 RPM cartridges
 //pros::MotorGroup right_motors({-11,-20 }, pros::MotorGearset::green); // right motors use 200 RPM cartridges
 
-pros::MotorGroup left_motors({11, 1}, pros::MotorGearset::green); // left motors use 600 RPM cartridges
+pros::MotorGroup left_motors({-11,- 1}, pros::MotorGearset::green); // left motors use 600 RPM cartridges
 pros::MotorGroup right_motors({20,10 }, pros::MotorGearset::green); // right motors use 200 RPM cartridges
 
 
