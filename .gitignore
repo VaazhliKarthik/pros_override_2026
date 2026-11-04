@@ -1,10 +1,14 @@
 # Compiled Object files
 *.o
 *.obj
+*.dylib
+*.dll
 
 # Executables
 *.bin
 *.elf
+*.hex
+*.map
 
 # PROS
 bin/
